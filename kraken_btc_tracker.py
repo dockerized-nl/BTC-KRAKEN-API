@@ -49,22 +49,6 @@ INTERVALS = {
 
 
 def get_24h_btc_prices(trading_pair='XXBTZUSD', interval=60, num_candles=24):
-    """
-    Function 1: Read BTC price per hour and create a list of 24 hours
-    
-    This function fetches OHLC (Open, High, Low, Close) data from Kraken
-    for a specified trading pair with customizable intervals.
-    
-    Args:
-        trading_pair (str): Trading pair to fetch (default: 'XXBTZUSD' for BTC/USD)
-                           Examples: 'XXBTZUSD', 'XETHZUSD', 'XLTCZUSD'
-        interval (int): Time interval in minutes (default: 60)
-                       Options: 1, 5, 15, 30, 60, 240, 1440, 10080, 21600
-        num_candles (int): Number of candles to fetch (default: 24)
-    
-    Returns:
-        list: A list containing price data with OHLCV information
-    """
     # OHLC endpoint for getting candlestick data
     endpoint = f"{BASE_URL}/OHLC"
     
@@ -125,22 +109,6 @@ def get_24h_btc_prices(trading_pair='XXBTZUSD', interval=60, num_candles=24):
 
 
 def calculate_fibonacci_levels(btc_24h_list):
-    """
-    Function 3: Calculate Fibonacci retracement levels and trading signals
-    
-    Fibonacci retracement levels are horizontal lines that indicate where support 
-    and resistance are likely to occur. They are based on Fibonacci numbers.
-    
-    Common trading strategy:
-    - In an UPTREND: Buy near 38.2%, 50%, or 61.8% retracement levels
-    - In a DOWNTREND: Sell near 38.2%, 50%, or 61.8% retracement levels
-    
-    Args:
-        btc_24h_list (list): List of BTC price data from Function 1
-        
-    Returns:
-        dict: Dictionary containing Fibonacci levels and trading signals
-    """
     if not btc_24h_list:
         print("No data to calculate Fibonacci levels!")
         return None
@@ -252,23 +220,6 @@ def calculate_fibonacci_levels(btc_24h_list):
 
 
 def analyze_volume(btc_24h_list):
-    """
-    Function 4: Analyze trading volume and plot it
-    
-    Trading volume shows how much BTC was traded. High volume indicates:
-    - Strong conviction in price movements
-    - Potential trend continuations or reversals
-    
-    Low volume indicates:
-    - Weak interest
-    - Potential false breakouts
-    
-    Args:
-        btc_24h_list (list): List of BTC price data from Function 1
-        
-    Returns:
-        dict: Dictionary containing volume statistics
-    """
     if not btc_24h_list:
         print("No data to analyze volume!")
         return None
@@ -341,18 +292,6 @@ def analyze_volume(btc_24h_list):
 
 
 def plot_price_and_volume(btc_24h_list, fib_data=None, volume_data=None):
-    """
-    Function 4b: Create a comprehensive plot with candlesticks and volume
-    
-    This creates a professional trading chart with:
-    - Top panel: Candlestick chart with Fibonacci levels
-    - Bottom panel: Volume bars
-    
-    Args:
-        btc_24h_list (list): List of BTC price data
-        fib_data (dict): Fibonacci data (optional)
-        volume_data (dict): Volume data (optional)
-    """
     if not btc_24h_list:
         print("No data to plot!")
         return
@@ -459,16 +398,6 @@ def plot_price_and_volume(btc_24h_list, fib_data=None, volume_data=None):
 
 
 def analyze_and_plot_24h(btc_24h_list, fib_data=None):
-    """
-    Function 2: Analyze 24_list and plot this
-    
-    This function analyzes the 24-hour BTC price data and creates a candlestick plot.
-    It also calculates some basic statistics and optionally displays Fibonacci levels.
-    
-    Args:
-        btc_24h_list (list): List of BTC price data from Function 1
-        fib_data (dict): Fibonacci data from Function 3 (optional)
-    """
     if not btc_24h_list:
         print("No data to analyze!")
         return
@@ -593,21 +522,6 @@ if __name__ == "__main__":
     trading_pair = TRADING_PAIRS['BTC/USD']  # Change to 'ETH/USD', 'XRP/USD', etc.
     interval = INTERVALS['1hour']             # Change to '5min', '15min', '4hour', etc.
     num_candles = 24                          # Number of candles to fetch
-    
-    # Example 2: Ethereum with 4-hour candles
-    # trading_pair = TRADING_PAIRS['ETH/USD']
-    # interval = INTERVALS['4hour']
-    # num_candles = 24
-    
-    # Example 3: Bitcoin with 15-minute candles (last 6 hours = 24 candles)
-    # trading_pair = TRADING_PAIRS['BTC/USD']
-    # interval = INTERVALS['15min']
-    # num_candles = 24
-    
-    # Example 4: Solana with 5-minute candles (last 2 hours = 24 candles)
-    # trading_pair = TRADING_PAIRS['SOL/USD']
-    # interval = INTERVALS['5min']
-    # num_candles = 24
     
     print(f"📈 Analyzing: {[k for k, v in TRADING_PAIRS.items() if v == trading_pair][0]}")
     print(f"⏱️  Interval: {[k for k, v in INTERVALS.items() if v == interval][0]}")
